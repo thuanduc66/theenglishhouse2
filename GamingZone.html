@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The English House</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="Logo.jpg">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="homepage.html">The English House</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="homepage.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="Lesson.html">Lesson</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Practice
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="Excercise.html">Exercise</a></li>
+                      <li><a class="dropdown-item" href="GamingZone.html">Game-Zone</a></li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="Contact.html">Contact</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search" action="https://www.google.com/search" method="GET">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success mx-1" type="submit">Search</button>  
+                </form>
+              </div>
+            </div>
+          </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Bumming Bumming Gaming Zone</h1>
+            <p>Welcome to the Bumming Bumming Gaming Zone! Test your knowledge with our fun quiz.</p>
+            <form class="row g-3 needs-validation" novalidate>
+              <div id="question-container">
+                  <h2>Question</h2>
+                  <p id="question-text"></p>
+      
+                  <div class="row">
+                      <div class="d-grid gap-2 d-md-block mb-3">
+                          <button type="button" class="btn btn-primary" id="answer-1">Lựa chọn 1</button>
+                      </div>
+                      <div class="d-grid gap-2 d-md-block mb-3">
+                          <button type="button" class="btn btn-primary" id="answer-2">Lựa chọn 2</button>
+                      </div>
+                      <div class="d-grid gap-2 d-md-block mb-3">
+                          <button type="button" class="btn btn-primary" id="answer-3">Lựa chọn 3</button>
+                      </div>
+                      <div class="d-grid gap-2 d-md-block mb-3">
+                          <button type="button" class="btn btn-primary" id="answer-4">Lựa chọn 4</button>
+                      </div>
+                  </div>
+      
+                  <button type="button" class="btn btn-success" id="next-question">Next Question</button>
+              </div>
+      
+              <div id="result-container" style="display: none;">
+                  <h2>Result</h2>
+                  <p id="result-text"></p>
+              </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-light text-center py-3 mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="Logo.jpg" alt="The English House" style="height: 100px; width: 100px;">
+                    <h4>Contact Information</h4>
+                    <p>Email: info@learningenglish.com</p>
+                    <p>Phone: +1 123-456-7890</p>
+                    <p>Address: 123 Main Street, City, Country</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Follow Us</h4>
+                    <a href="https://www.facebook.com" class="btn btn-outline-primary">Facebook</a>
+                    <a href="https://www.instagram.com" class="btn btn-outline-danger">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <p>&copy; 2022 Learning English. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const questionContainer = document.getElementById('question-container');
+        const resultContainer = document.getElementById('result-container');
+        const questionText = document.getElementById('question-text');
+        const answerButtons = document.querySelectorAll('.btn-primary');
+        const nextQuestionButton = document.getElementById('next-question');
+        const resultText = document.getElementById('result-text');
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questions = [
+            {
+                question: 'What is the color of the sky?',
+                answers: ['Red', 'Blue', 'Green', 'Yellow'],
+                correctAnswer: 1
+            },
+            {
+                question: 'What is the capital of Vietnam?',
+                answers: ['Hanoi', 'Ho Chi Minh City', 'Da Nang', 'Can Tho'],
+                correctAnswer: 0
+            },
+            {
+                question: 'What is the largest animal on Earth?',
+                answers: ['Elephant', 'Blue Whale', 'Giraffe', 'Lion'],
+                correctAnswer: 1
+            },
+        ];
+
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            questionText.textContent = question.question;
+
+            for (let i = 0; i < answerButtons.length; i++) {
+                answerButtons[i].textContent = question.answers[i];
+                answerButtons[i].onclick = function() {
+                    checkAnswer(i);
+                };
+            }
+        }
+
+        function checkAnswer(selectedAnswer) {
+            const question = questions[currentQuestion];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+
+            if (isCorrect) {
+                score++;
+                resultText.textContent = "Correct!";
+            } else {
+                resultText.textContent = `Wrong! The correct answer is ${question.answers[question.correctAnswer]}`;
+            }
+
+            // Show result container and hide question container
+            resultContainer.style.display = "block";
+            questionContainer.style.display = "none";
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+
+            if (currentQuestion >= questions.length) {
+                // Show final result and hide buttons
+                resultText.textContent = `You answered ${score} out of ${questions.length} questions correctly.`;
+                nextQuestionButton.style.display = "none";
+                answerButtons.forEach(button => button.disabled = true);
+            } else {
+                displayQuestion();
+                resultContainer.style.display = "none";
+                questionContainer.style.display = "block";
+            }
+        }
+
+        displayQuestion();  // Call to display the first question
+
+        nextQuestionButton.addEventListener('click', nextQuestion);
+    </script>
+</body>
+</html>
